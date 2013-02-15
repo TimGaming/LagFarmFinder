@@ -1,4 +1,4 @@
 XRazer
 ======
 
-XRay Detector for Tekkit 1.2.5
+Lag Finder for Tekkit/Craftbukkit
