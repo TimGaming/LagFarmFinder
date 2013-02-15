@@ -1,0 +1,18 @@
+name: LagFarmFinder
+author: Ubertweakstor
+date: 18/12/2012 20:59
+main: ubertweakstor.lagfarmfinder.LagFarmFinder
+version: 1.0.0
+
+commands:
+   findlag:
+      description: This finds any laggy farms
+      permission: lagfarmfinder.findlag
+      usage: /<command> [parameters]
+      permission-message: You don't have permission to execute this command.
+      
+   getmobsaround:
+      description: Returns the number of entities near a player
+      permission: lagfarmfinder.getmobsaround
+      usage: /<command> [player] [radius]
+      permission-message: You don't have permission to execute this command.
