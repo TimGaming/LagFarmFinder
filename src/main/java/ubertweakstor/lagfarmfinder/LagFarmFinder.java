@@ -48,15 +48,30 @@ public class LagFarmFinder extends JavaPlugin {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         Player ply = (Player) sender;
-        if (label.equalsIgnoreCase("getmobsaround")){
+        if (label.equalsIgnoreCase("mobcount")){
+            if (getServer().getPlayer(args[0])==null){
+                ply.sendMessage(ChatColor.RED+"ERROR: Player Not Online");
+                return true;
+            }
+            try{
+                Integer.parseInt(args[1]);
+            }catch (Exception ex){
+                ply.sendMessage(ChatColor.RED+"Radius not valid.");
+                return true;
+            }
             ply.sendMessage(ChatColor.BLUE+"Number of mobs in a "+String.valueOf(args[1])+
                     " radius around "+ChatColor.BLUE+args[0]+": "+
                     ChatColor.RED+String.valueOf(getNumberOfEntitiesNear(getServer().getPlayer(args[0]), Integer.valueOf(args[1]))));
             return true;
-        } else if(label.equalsIgnoreCase("findlag")){
+        } else if(label.equalsIgnoreCase("findlag")){            
             HashMap<Player, Integer> top = new HashMap<Player, Integer>();
             for(Player p: getServer().getOnlinePlayers()){
-                top.put(ply, getNumberOfEntitiesNear(p, Integer.valueOf(args[0])));
+                if (args[0] != null){
+                    top.put(ply, getNumberOfEntitiesNear(p, Integer.valueOf(args[0])));
+                }                
+                else{
+                    top.put(ply, getNumberOfEntitiesNear(p, 80));
+                }
             }
             
             
