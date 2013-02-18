@@ -1,8 +1,8 @@
 name: LagFarmFinder
 author: Ubertweakstor
-date: 18/12/2012 20:59
+date: 18/02/2013
 main: ubertweakstor.lagfarmfinder.LagFarmFinder
-version: 1.0.0
+version: 1.0.3
 
 commands:
    findlag:
@@ -13,6 +13,6 @@ commands:
       
    mobcount:
       description: Returns the number of entities near a player
-      permission: lagfarmfinder.getmobsaround
+      permission: lagfarmfinder.mobcount
       usage: /<command> [player] [radius]
       permission-message: You don't have permission to execute this command.
