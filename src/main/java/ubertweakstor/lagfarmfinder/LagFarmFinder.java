@@ -52,6 +52,7 @@ public class LagFarmFinder extends JavaPlugin {
         if (label.equalsIgnoreCase("mobcount")){
             if (args.length!=2){
                 ply.sendMessage(ChatColor.RED+"ERROR: Invalid Syntax.");
+                return true;
             }
             if (getServer().getPlayer(args[0])==null){
                 ply.sendMessage(ChatColor.RED+"ERROR: Player Not Online");
@@ -73,7 +74,7 @@ public class LagFarmFinder extends JavaPlugin {
             return true;
         } else if(label.equalsIgnoreCase("findlag")){ 
             HashMap<Player, Integer> top = new HashMap<Player, Integer>();
-            if(Integer.valueOf(args[0])>200 && args.length==0){
+            if(args.length==1 && Integer.valueOf(args[0])>200){
                 ply.sendMessage(ChatColor.RED+"ERROR: Please do not select a radius higher than 200.");
                 return true;
             }
