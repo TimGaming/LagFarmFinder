@@ -8,6 +8,7 @@ package ubertweakstor.lagfarmfinder;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 import org.bukkit.ChatColor;
@@ -53,35 +54,56 @@ public class LagFarmFinder extends JavaPlugin {
                 ply.sendMessage(ChatColor.RED+"ERROR: Player Not Online");
                 return true;
             }
+            if(Integer.valueOf(args[1])>201){
+                ply.sendMessage(ChatColor.RED+"ERROR: Please do not select a radius higher than 200.");
+                return true;
+            }
             try{
-                Integer.parseInt(args[1]);
+                Integer.valueOf(args[1]);
             }catch (Exception ex){
                 ply.sendMessage(ChatColor.RED+"Radius not valid.");
                 return true;
             }
-            ply.sendMessage(ChatColor.BLUE+"Number of mobs in a "+String.valueOf(args[1])+
+            ply.sendMessage(ChatColor.BLUE+"Number of mobs in a "+args[1]+
                     " radius around "+ChatColor.BLUE+args[0]+": "+
                     ChatColor.RED+String.valueOf(getNumberOfEntitiesNear(getServer().getPlayer(args[0]), Integer.valueOf(args[1]))));
             return true;
-        } else if(label.equalsIgnoreCase("findlag")){            
+        } else if(label.equalsIgnoreCase("findlag")){ 
             HashMap<Player, Integer> top = new HashMap<Player, Integer>();
-            for(Player p: getServer().getOnlinePlayers()){
-                if (args[0] != null){
-                    top.put(ply, getNumberOfEntitiesNear(p, Integer.valueOf(args[0])));
+            if(Integer.valueOf(args[0])>201){
+                ply.sendMessage(ChatColor.RED+"ERROR: Please do not select a radius higher than 200.");
+                return true;
+            }
+            for(Player p: getServer().getOnlinePlayers()){            
+                if (args.length >= 1){
+                    top.put(p, getNumberOfEntitiesNear(p, Integer.valueOf(args[0])));                    
                 }                
                 else{
-                    top.put(ply, getNumberOfEntitiesNear(p, 80));
+                    top.put(p, getNumberOfEntitiesNear(p, 80));                    
                 }
             }
             
-            
-            int maxValueInMap=(Collections.max(top.values()));  // This will return max value in the Hashmap
-            for (Entry<Player, Integer> entry : top.entrySet()) {  // Itrate through hashmap
-                if (entry.getValue()==maxValueInMap) {
-                    ply.sendMessage(ChatColor.RED+entry.getKey().getName()+": "+String.valueOf(entry.getValue()));
-                }
+            int iterations = 0;
+            if (top.size() > 10){
+                iterations = 10;
+            } else {
+                iterations = top.size();
+            }            
+            int cnt = 1;
+            for(int x = 0; x!=iterations; x++){
+                Map.Entry<Player, Integer> maxEntry = null;            
+                for(Map.Entry<Player, Integer> entry: top.entrySet()){
+                    if (maxEntry == null || entry.getValue()>maxEntry.getValue()){
+                        maxEntry = entry;
+                    }        
+                }                
+                ply.sendMessage(ChatColor.GREEN+String.valueOf(cnt)+
+                        ". "+ChatColor.RED+((Player)maxEntry.getKey()).getName()+
+                        ": "+ChatColor.BLUE+String.valueOf(maxEntry.getValue()));
+                top.remove(maxEntry.getKey());
+                cnt++;
             }
-            
+                                    
         }
         return true;
     }
