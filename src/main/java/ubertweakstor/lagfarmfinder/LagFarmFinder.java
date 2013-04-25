@@ -50,11 +50,14 @@ public class LagFarmFinder extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         Player ply = (Player) sender;
         if (label.equalsIgnoreCase("mobcount")){
+            if (args.length!=2){
+                ply.sendMessage(ChatColor.RED+"ERROR: Invalid Syntax.");
+            }
             if (getServer().getPlayer(args[0])==null){
                 ply.sendMessage(ChatColor.RED+"ERROR: Player Not Online");
                 return true;
             }
-            if(Integer.valueOf(args[1])>201){
+            if(Integer.valueOf(args[1])>200){
                 ply.sendMessage(ChatColor.RED+"ERROR: Please do not select a radius higher than 200.");
                 return true;
             }
@@ -70,7 +73,7 @@ public class LagFarmFinder extends JavaPlugin {
             return true;
         } else if(label.equalsIgnoreCase("findlag")){ 
             HashMap<Player, Integer> top = new HashMap<Player, Integer>();
-            if(Integer.valueOf(args[0])>201){
+            if(Integer.valueOf(args[0])>200 && args.length==0){
                 ply.sendMessage(ChatColor.RED+"ERROR: Please do not select a radius higher than 200.");
                 return true;
             }
