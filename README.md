@@ -1,4 +1,4 @@
-XRazer
+LagFarmFinder
 ======
 
-Lag Finder for Tekkit/Craftbukkit
+Lag Finder for Tekkit/Bukkit
