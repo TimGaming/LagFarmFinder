@@ -6,10 +6,8 @@
 
 package ubertweakstor.lagfarmfinder;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.logging.Logger;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -48,7 +46,7 @@ public class LagFarmFinder extends JavaPlugin {
      */
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        Player ply = (Player) sender;
+        CommandSender ply = sender;
         if (label.equalsIgnoreCase("mobcount")){
             if (args.length!=2){
                 ply.sendMessage(ChatColor.RED+"ERROR: Invalid Syntax.");
